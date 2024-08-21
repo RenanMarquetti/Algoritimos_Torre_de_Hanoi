@@ -27,9 +27,7 @@ public class Algoritimo4 {
 		int c = 0;
 		
 		while (c < posicoes.size()) gerarProximasPosicoes(posicoes.get(c++));
-		
-		//System.out.println(grafo.size());
-		
+	
 		buscaEmLargura(posinicial.getNotacao());
 		
 		String notacaoFinal = "1|2|3|";
@@ -80,7 +78,6 @@ public class Algoritimo4 {
 	}
 	
 	static void gerarProximasPosicoes(Posicao posicao) {
-		//System.out.println("Testando: "+posicao.getNotacao());
 		
 		if(posicao.isVisitada()) return;
 		
@@ -93,20 +90,13 @@ public class Algoritimo4 {
 					Posicao novaPosicao = new Posicao(posicao, mov);
 					posicao.getMovimentosValidos().put(mov, novaPosicao.getNotacao());
 					
-					//System.out.print(posicao.getNotacao()+"  O: "+origem+" D: "+destino+" posicao: "+novaPosicao.getNotacao()+" Grafo: ");
-					
 					if(!grafo.containsKey(novaPosicao.getNotacao())) {
 						grafo.put(novaPosicao.getNotacao(), novaPosicao);
 						posicoes.add(novaPosicao);
-						//System.out.println("true");
-					} else {
-						//System.out.println("false");
 					}
 				}
 		}
-		//System.out.println("termino: " + posicao.getNotacao()+"\n");
 		posicao.setVisitada(true);
 	}
-	
 	
 }

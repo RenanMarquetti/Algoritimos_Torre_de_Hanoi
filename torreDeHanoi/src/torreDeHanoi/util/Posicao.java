@@ -28,11 +28,9 @@ public class Posicao {
 		this.notacao = notacao;
 		String[] values = notacao.split("\\|");
 		for(int x = 0; x < values.length; x++) {
-			//System.out.println("Base "+x+" "+values[x]);
 			 
 			String[] discos = values[x].split(":");
 			for(int y = discos.length-1; y >= 0; y--) if(!discos[y].equals("0")) {
-				//System.out.println(discos[y]);
 				stacks.get(x).add(Integer.parseInt(discos[y]));
 			}
 		}
@@ -51,15 +49,12 @@ public class Posicao {
 		for(;i < 3; i++) if(!stacks.get(i).isEmpty() && stacks.get(i).peek() == movimento.getDisco()) break;
 		
 		int indexOrigem = i;
-		//if(indexOrigem == 2) System.out.println(posicao.getNotacao()+" movimento: "+ movimento.getNotacao());
 		int indexDestino = (indexOrigem + (movimento.getDirecao() == 'D' ? 1:2))%3;
 		
 		this.stacks = new ArrayList<Stack<Integer>>();
 		this.stacks.add((Stack<Integer>) stacks.get(0).clone());
 		this.stacks.add((Stack<Integer>) stacks.get(1).clone());
 		this.stacks.add((Stack<Integer>) stacks.get(2).clone());
-		
-		//System.out.printf("Origem: %d, Destino: %d", indexOrigem, indexDestino);
 
 		this.stacks.get(indexDestino).add(this.stacks.get(indexOrigem).pop());
 		
@@ -136,8 +131,7 @@ public class Posicao {
 		Integer pilhaInicial = null;
 		Integer pilhaFinal = null;
 		Integer posicaoAposMovimentoNatural = null;
-		
-		int[] discoAnteriorInicial = null;
+
 		int[] discoAnteriorFinal = null;
 		
 		for( ; discoAnalisado > 0; discoAnalisado--) {
@@ -156,14 +150,6 @@ public class Posicao {
 				values[1][discoAnalisado-1] = discoAtualFinal[0] != 3-pilhaInicial-pilhaFinal;
 			}
 			
-//			else if(pilhaInicial == pilhaFinal && discoAtualInicial[0] == discoAtualFinal[0] && discoAtualInicial[1] == discoAtualFinal[1]) {
-//				values[1][discoAnalisado-1] = false;
-//			} else {
-//				pilhaInicial = pilhaInicial != pilhaFinal ? 3-pilhaInicial-pilhaFinal : discoAtualInicial[0];
-//				values[1][discoAnalisado-1] = discoAtualFinal[0] == pilhaInicial || discoAtualFinal[0] == pilhaFinal;
-//				pilhaFinal = discoAtualFinal[0];
-//			}
-			
 			if(!values[1][discoAnalisado-1]) {
 				values[0][discoAnalisado-1] = values[0][discoAnalisado];
 			} else if(discoAnteriorFinal != null && discoAnteriorFinal[0] == discoAtualFinal[0] && discoAnteriorFinal[1] + 1 == discoAtualFinal[1]) {
@@ -172,9 +158,7 @@ public class Posicao {
 				posicaoAposMovimentoNatural = (pilhaInicial + (discoAnalisado % 2 == testador ? 2 : 1)) % 3;
 				values[0][discoAnalisado-1] = discoAtualInicial[0] != discoAtualFinal[0] && posicaoAposMovimentoNatural != discoAtualFinal[0];
 			}
-			
-			
-			discoAnteriorInicial = discoAtualInicial;
+
 			discoAnteriorFinal = discoAtualFinal;
 		}
 		
@@ -206,11 +190,10 @@ public class Posicao {
 			
 			int numTorre = 0;
 			for (Stack<Integer> s : stacks) if(s.contains(discoAnalisado)) break; else numTorre++;
-			
-			int[] discoPosicaoInicial = getPosicaoDisco(discoAnalisado);
+
 			int[] discoPosicaoFinal = posiFinal.getPosicaoDisco(discoAnalisado);
 			
-			if(discoAnalisado == qtdDiscos) { //(discoPosicaoInicial[0] == discoPosicaoFinal[0] && discoPosicaoInicial[1] == discoPosicaoFinal[1]) 
+			if(discoAnalisado == qtdDiscos) {
 				
 				pilhaFinal = discoPosicaoFinal[0];
 				
@@ -225,11 +208,6 @@ public class Posicao {
 			
 			posicaoAposMovimentoNatural = (pilhaAtual + (discoAnalisado % 2 == testador ? 2 : 1)) % 3;
 			
-//			if(discoAnalisado == 1) {
-//				System.out.println("\npilhaAtual: "+pilhaAtual);
-//				System.out.println("pilhaFinal: "+pilhaFinal);
-//				System.out.println("posicaoAposMovimentoNatural: "+posicaoAposMovimentoNatural+'\n');
-//			}
 			if(pilhaAtual != pilhaFinal) values[0][discoAnalisado-1] = posicaoAposMovimentoNatural != pilhaFinal;
 			else values[0][discoAnalisado-1] = false;
 			
@@ -246,45 +224,6 @@ public class Posicao {
 			values[1][i] = values[1][values[1].length - 1 - i];
 			values[1][values[1].length - 1 - i] = temp;
 		}
-		
-		return values;
-	}
-
-	@Deprecated
-	public Boolean[][] calcValuePosicao() {
-		
-		int qtdDiscos = stacks.stream().map(s -> s.size()).reduce((v1 , v2) -> v1+v2).get();
-		int testador = qtdDiscos % 2;
-		int discoAnalisado = qtdDiscos;
-		Boolean[][] values = new Boolean[2][qtdDiscos];
-		Integer pilhaAtual = null;
-		Integer pilhaFinal = null;
-		Integer posicaoAposMovimentoNatural = null;
-		
-		for( ; discoAnalisado > 0; discoAnalisado--) {
-			
-			int numTorre = 0;
-			for (Stack<Integer> s : stacks) if(s.contains(discoAnalisado)) break; else numTorre++;
-			
-			if(discoAnalisado == qtdDiscos) {
-				pilhaFinal = 2;
-			} else {
-				if(!values[1][discoAnalisado]) pilhaFinal = 3-pilhaAtual-pilhaFinal;
-			}
-			
-			pilhaAtual = numTorre;
-			values[1][discoAnalisado-1] = pilhaAtual == pilhaFinal;
-			posicaoAposMovimentoNatural = (pilhaAtual + (discoAnalisado % 2 == testador ? 2 : 1)) % 3;
-			if(pilhaAtual != pilhaFinal) values[0][discoAnalisado-1] = posicaoAposMovimentoNatural != pilhaFinal;
-			else values[0][discoAnalisado-1] = false;
-			
-		}
-		
-		for (int i = 0; i < values[1].length / 2; i++) {
-			Boolean temp = values[1][i];
-			values[1][i] = values[1][values[1].length - 1 - i];
-			values[1][values[1].length - 1 - i] = temp;
-		}	
 		
 		return values;
 	}

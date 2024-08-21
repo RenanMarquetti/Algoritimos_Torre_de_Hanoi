@@ -63,5 +63,4 @@ public class Movimento {
 		this.direcao = direcao;
 	}
 	
-	
 }
