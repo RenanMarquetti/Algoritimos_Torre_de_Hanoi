@@ -2,21 +2,20 @@ package torreDeHanoi;
 
 import java.util.Date;
 
+import torreDeHanoi.util.LogMovimentos;
+import torreDeHanoi.util.Movimento;
+
 public class Algoritimo1 {
 	
+	static int qtdDiscos = 4;
+	static int torreInicial = 0;
+	static int testador = (qtdDiscos+torreInicial)%2;
+	
 	public static void main(String[] args) {
-		
-		int qtdDiscos = 20;
-		int torreIcial = 0;
 		
 		boolean imprimirMovimentos = true;
 		
 		Date inicio = new Date();
-		
-		// discos: 29
-		// imprimindo: 4.326 ml
-		// sem imprimir: 19 ml
-		// limite: 29 discos, sem imprimir: 3.172 ml
 		
 		int qtdMovimentos = (int) (Math.pow(2, qtdDiscos) -1.0);
 		
@@ -29,7 +28,7 @@ public class Algoritimo1 {
 			
 			for(int x = (int) Math.pow(2.0, c-1) -1; x < movimentos.length; x += salto) {
 				
-				int posAtual = ((x / salto)+1)+torreIcial;
+				int posAtual = ((x / salto)+1)+torreInicial;
 				
 				if(disco%2 == 0) posisoes[x] = (byte) (posAtual%3);
 				else posisoes[x] = (byte) ((posAtual*2)%3);
@@ -41,15 +40,13 @@ public class Algoritimo1 {
 		
 		
 		if(imprimirMovimentos) {
+			System.out.println("Qtd discos: "+qtdDiscos+" Torre Inicial: "+torreInicial);
 			
-			char nomeTorres[] = {'A','B','C'};
-			System.out.print("Linha     1: ");
-			for(int y = 0; y<movimentos.length; ) {
+			LogMovimentos logSaida = new LogMovimentos(); 
+			for(int y = 0; y<movimentos.length; y++) {
 				
-				char torre = nomeTorres[posisoes[y]];
-				
-				System.out.printf("%2d%s ", qtdDiscos-movimentos[y]+1,torre);
-				if(++y%10 == 0) System.out.printf("\nLinha %,5d: ",y/10 +1);
+				int disco = qtdDiscos-movimentos[y]+1;
+				logSaida.imprimirMovimento(new Movimento(disco, disco%2 != testador));
 			}
 		}
 		

@@ -1,9 +1,12 @@
 package torreDeHanoi;
 
+import torreDeHanoi.util.LogMovimentos;
+import torreDeHanoi.util.Movimento;
 import torreDeHanoi.util.Posicao;
+import torreDeHanoi.util.Util;
 
 public class Algoritimo5 {
-	
+
 	static boolean imprimirMovimentos = true;
 
 	public static boolean inverterDirecao;
@@ -12,7 +15,6 @@ public class Algoritimo5 {
 	public static int testador = 0;
 	public static int contMovimentos = 0;
 	public static long proximaInvercao = 1;
-	
 	
 	public static Boolean[] orintacaoInicio;
 	public static Boolean[] valueInicio;
@@ -26,8 +28,6 @@ public class Algoritimo5 {
 		
 		String notacaoFinal = "1|2|3|";
 		Posicao posiFinal = new Posicao(notacaoFinal);
-		
-		System.out.println("Operação: "+notacaoInicial+" -> "+notacaoFinal+"\n");
 		
 		Long inicio = System.currentTimeMillis();
 		Boolean[][] analiseInicio = posiInicial.calcValuePosicaoInicioByPosicaoFinal(posiFinal);
@@ -56,50 +56,32 @@ public class Algoritimo5 {
 		proximaInvercao = proximaInvercao << qtdDisco-1;
 		while((long) init > proximaInvercao) proximaInvercao += proximaInvercao/2;
 		
-		for(long m = init; m <= fim; m++) imprimirMovimento(m);
+		LogMovimentos logSaida = new LogMovimentos();
+		
+		System.out.println("Operação: "+notacaoInicial+" -> "+notacaoFinal);
+		for(long m = init; m <= fim; m++) logSaida.imprimirMovimento(buildMovimento(m));
 
 		System.out.printf("\n\nTempo Calculo : %,d ml",System.currentTimeMillis()-inicio);
 	}
+	
+	private static Movimento buildMovimento(long m) {
 
-	private static void imprimirMovimento(long m) {
-
-		long comparador = 1L;
-		long result = m & comparador;
-
-		int disco = 1;
-		while(result == 0) {
-			
-			comparador = comparador<<1;
-
-			result = m & comparador;
-			
-			disco++;
-
-		}
+		int disco = Util.calcDisco(m);
 		
 		boolean direcao = disco % 2 == testador;
 		int indexOrientacao = qtdDisco - disco;
-		
-
 		
 		if(orintacaoInicio[indexOrientacao] != null && orintacaoInicio[indexOrientacao]) {
 			direcao = !direcao;
 			for(int c = indexOrientacao; c < qtdDisco; c++) orintacaoInicio[c] = !orintacaoInicio[c];
 		}
 		
-		if(imprimirMovimentos && ++contMovimentos%10==1) System.out.printf("\nLinha %,5d: ",m/10 +1);
-
-		if(imprimirMovimentos) System.out.printf("%.0f%s ",log(2.0, result) + 1.0, direcao ? 'D' : 'E');		
-
 		if(m == proximaInvercao && indexOrientacao+1 < orintacaoFim.length) {
 			for(int c = indexOrientacao; c < qtdDisco; c++) orintacaoInicio[c] = orintacaoFim[indexOrientacao+1];
 			proximaInvercao += (long) (Math.pow(2.0, indexOrientacao+1));
 		}
-
-	}
-
-	private static double log(double base, double valor) {
-		return Math.log(valor) / Math.log(base);
+		
+		return new Movimento(disco, direcao);
 	}
 	
 }

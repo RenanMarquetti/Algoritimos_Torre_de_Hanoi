@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import torreDeHanoi.util.LogMovimentos;
 import torreDeHanoi.util.Movimento;
 import torreDeHanoi.util.Posicao;
 
@@ -14,28 +15,27 @@ public class Algoritimo4 {
 	
 	static Map<String, Posicao> grafo = new HashMap<String, Posicao>();
 	static List<Posicao> posicoes = new ArrayList<Posicao>();
-
-	static Queue<Posicao> filaBusca;
-	static List<Movimento> resultado;
+	static Queue<Posicao> filaBusca = new LinkedList<Posicao>();
+	static List<Movimento> resultado = new ArrayList<Movimento>();
 	
 	public static void main(String[] args) {
 		
-		Posicao posinicial = new Posicao("1:2:3|0|0|");
-		grafo.put(posinicial.getNotacao(), posinicial);
-		posicoes.add(posinicial);
+		Posicao posiInicial = new Posicao("1:2:3|0|0|");
+		Posicao posiFinal = new Posicao("1|2|3|");
+		
+		grafo.put(posiInicial.getNotacao(), posiInicial);
+		posicoes.add(posiInicial);
 		
 		int c = 0;
-		
-		while (c < posicoes.size()) gerarProximasPosicoes(posicoes.get(c++));
+		for( ;c < posicoes.size(); ) gerarProximasPosicoes(posicoes.get(c++));
 	
-		buscaEmLargura(posinicial.getNotacao());
+		buscaEmLargura(posiInicial.getNotacao());
+		navegar(grafo.get(posiFinal.getNotacao()));
 		
-		String notacaoFinal = "1|2|3|";
-		System.out.println("Operação: "+posinicial.getNotacao()+" -> "+notacaoFinal+"\n");
+		System.out.println("Operação: "+posiInicial.getNotacao()+" -> "+posiFinal.getNotacao()+"\n");
+		LogMovimentos logSaida = new LogMovimentos();
+		for(c = resultado.size()-1; c>=0; c--) logSaida.imprimirMovimento(resultado.get(c));
 		
-		resultado = new ArrayList<Movimento>();
-		navegar(grafo.get(notacaoFinal));
-		for(c = resultado.size()-1; c>=0; c--) System.out.print(resultado.get(c).getNotacao()+" ");
 		System.out.print("\n\nfim\n");
 		
 	}
@@ -49,7 +49,6 @@ public class Algoritimo4 {
 	
 	static void buscaEmLargura(String posInical) {
 
-		filaBusca = new LinkedList<Posicao>();
 		grafo.values().forEach(pos -> {
 			pos.setVisitada(false);
 			pos.setMovimentoAnterior(null);
@@ -96,7 +95,9 @@ public class Algoritimo4 {
 					}
 				}
 		}
+		
 		posicao.setVisitada(true);
+		
 	}
 	
 }

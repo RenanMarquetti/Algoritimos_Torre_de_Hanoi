@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.Stack;
 
 public class Movimento {
-	
-	private String notacao;
+
 	private Integer disco;
 	private char direcao;
 	
@@ -16,15 +15,22 @@ public class Movimento {
 	public Movimento(Posicao pos, int origem, int destino) {
 		this.disco = pos.getStacks().get(origem).peek();
 		this.direcao = (origem+1)%3 == destino ? 'D' : 'E';
-		this.notacao = disco.toString()+direcao;
 	}
 	
 	public Movimento(String notacao) {
-		this.notacao = notacao;
 		this.direcao = notacao.charAt(notacao.length()-1);
 		this.disco = Integer.parseInt(notacao.substring(0, notacao.length()-1));
 	}
 	
+	public Movimento(int disco, boolean direcao) {
+		this.disco = disco;
+		this.direcao = direcao ? 'D' : 'E';
+	}
+	
+	public Movimento(double disco, boolean direcao) {
+		this((int) disco, direcao);
+	}
+
 	public static boolean isValid(Posicao pos, int origem, int destino) {
 		
 		if(origem%3 == destino%3) return false;
@@ -40,11 +46,7 @@ public class Movimento {
 	}
 
 	public String getNotacao() {
-		return notacao;
-	}
-
-	public void setNotacao(String notacao) {
-		this.notacao = notacao;
+		return disco.toString()+direcao;
 	}
 
 	public Integer getDisco() {
