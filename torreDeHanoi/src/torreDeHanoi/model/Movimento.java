@@ -1,8 +1,5 @@
 package torreDeHanoi.model;
 
-import java.util.List;
-import java.util.Stack;
-
 public class Movimento {
 
 	private Integer disco;
@@ -32,7 +29,7 @@ public class Movimento {
 	}
 
 	public String getNotacao() {
-		return disco.toString()+direcao;
+		return String.format("%,2d%s", disco, direcao);
 	}
 
 	public Integer getDisco() {

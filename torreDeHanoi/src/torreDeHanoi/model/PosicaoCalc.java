@@ -9,6 +9,10 @@ public class PosicaoCalc extends Posicao {
 	
 	public int qtdDiscos;
 	public int testador;
+	public int referencia;
+	public TipoCalculo tipo;
+	public Boolean[] orientacao;
+	public Boolean[] base;
 	
 	public PosicaoCalc(String notacao) {
 		super(notacao);
@@ -16,8 +20,8 @@ public class PosicaoCalc extends Posicao {
 		testador = qtdDiscos%2;
 	}
 	
-	public Boolean[][] calcValuePosicao(PosicaoCalc posicao, TipoCalculo tipo) {
-		
+	public PosicaoCalc calcValuePosicao(PosicaoCalc posicao, TipoCalculo tipo) {
+		this.tipo = tipo;
 		Boolean[][] values = new Boolean[2][qtdDiscos];
 		
 		Integer pilhaInicial = null;
@@ -64,7 +68,14 @@ public class PosicaoCalc extends Posicao {
 			
 		}
 		
-		return Util.inverterArray(values);
+		values = Util.inverterArray(values);
+		orientacao = values[0];
+		base = values[1];
+		
+		for (int i = 0; i < base.length; ++i) referencia = (referencia << 1) + (base[i] ? 1 : 0);
+		if(TipoCalculo.INICIAL == tipo) referencia++;
+		
+		return this;
 	}
 	
 	public int[] getPosicaoDisco(int disco) {
