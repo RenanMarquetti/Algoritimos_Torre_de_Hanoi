@@ -1,4 +1,4 @@
-package torreDeHanoi.util;
+package torreDeHanoi.model;
 
 import java.util.List;
 import java.util.Stack;
@@ -12,7 +12,7 @@ public class Movimento {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Movimento(Posicao pos, int origem, int destino) {
+	public Movimento(PosicaoGrafo pos, int origem, int destino) {
 		this.disco = pos.getStacks().get(origem).peek();
 		this.direcao = (origem+1)%3 == destino ? 'D' : 'E';
 	}
@@ -29,20 +29,6 @@ public class Movimento {
 	
 	public Movimento(double disco, boolean direcao) {
 		this((int) disco, direcao);
-	}
-
-	public static boolean isValid(Posicao pos, int origem, int destino) {
-		
-		if(origem%3 == destino%3) return false;
-			
-		List<Stack<Integer>> stacks = pos.getStacks();
-		Stack<Integer> stackOrigem = stacks.get(origem%3);
-		Stack<Integer> stackDestino = stacks.get(destino%3);
-		
-		if(stackOrigem.isEmpty()) return false;
-		if(stackDestino.isEmpty()) return true;
-		
-		return stackOrigem.peek() < stackDestino.peek();
 	}
 
 	public String getNotacao() {

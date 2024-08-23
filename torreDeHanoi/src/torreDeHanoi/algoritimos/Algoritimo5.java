@@ -1,8 +1,8 @@
-package torreDeHanoi;
+package torreDeHanoi.algoritimos;
 
+import torreDeHanoi.model.Movimento;
+import torreDeHanoi.model.PosicaoCalc;
 import torreDeHanoi.util.LogMovimentos;
-import torreDeHanoi.util.Movimento;
-import torreDeHanoi.util.Posicao;
 import torreDeHanoi.util.Util;
 
 public class Algoritimo5 {
@@ -24,10 +24,10 @@ public class Algoritimo5 {
 	public static void main(String[] args) {
 		
 		String notacaoInicial = "1:2:3|0|0|";
-		Posicao posiInicial = new Posicao(notacaoInicial);
+		PosicaoCalc posiInicial = new PosicaoCalc(notacaoInicial);
 		
 		String notacaoFinal = "1|2|3|";
-		Posicao posiFinal = new Posicao(notacaoFinal);
+		PosicaoCalc posiFinal = new PosicaoCalc(notacaoFinal);
 		
 		Long inicio = System.currentTimeMillis();
 		Boolean[][] analiseInicio = posiInicial.calcValuePosicaoInicioByPosicaoFinal(posiFinal);

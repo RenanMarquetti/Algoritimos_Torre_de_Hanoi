@@ -1,4 +1,4 @@
-package torreDeHanoi;
+package torreDeHanoi.algoritimos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,21 +7,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import torreDeHanoi.model.Movimento;
+import torreDeHanoi.model.PosicaoGrafo;
 import torreDeHanoi.util.LogMovimentos;
-import torreDeHanoi.util.Movimento;
-import torreDeHanoi.util.Posicao;
+import torreDeHanoi.util.Util;
 
 public class Algoritimo4 {
 	
-	static Map<String, Posicao> grafo = new HashMap<String, Posicao>();
-	static List<Posicao> posicoes = new ArrayList<Posicao>();
-	static Queue<Posicao> filaBusca = new LinkedList<Posicao>();
+	static Map<String, PosicaoGrafo> grafo = new HashMap<String, PosicaoGrafo>();
+	static List<PosicaoGrafo> posicoes = new ArrayList<PosicaoGrafo>();
+	static Queue<PosicaoGrafo> filaBusca = new LinkedList<PosicaoGrafo>();
 	static List<Movimento> resultado = new ArrayList<Movimento>();
 	
 	public static void main(String[] args) {
 		
-		Posicao posiInicial = new Posicao("1:2:3|0|0|");
-		Posicao posiFinal = new Posicao("1|2|3|");
+		PosicaoGrafo posiInicial = new PosicaoGrafo("1:2:3|0|0|");
+		PosicaoGrafo posiFinal = new PosicaoGrafo("1|2|3|");
 		
 		grafo.put(posiInicial.getNotacao(), posiInicial);
 		posicoes.add(posiInicial);
@@ -40,7 +41,7 @@ public class Algoritimo4 {
 		
 	}
 	
-	static void navegar(Posicao posicao) {	
+	static void navegar(PosicaoGrafo posicao) {	
 		if(posicao.getPosicaoAnterior() != null) {
 			resultado.add(posicao.getMovimentoAnterior());
 			navegar(posicao.getPosicaoAnterior());
@@ -59,11 +60,11 @@ public class Algoritimo4 {
 		filaBusca.peek().setVisitada(true);
 		
 		while(!filaBusca.isEmpty()) {
-			Posicao posicaoEmBusca = filaBusca.remove();
+			PosicaoGrafo posicaoEmBusca = filaBusca.remove();
 			
 			
 			posicaoEmBusca.getMovimentosValidos().keySet().forEach(movValido -> {
-				Posicao pos = grafo.get(posicaoEmBusca.getMovimentosValidos().get(movValido));
+				PosicaoGrafo pos = grafo.get(posicaoEmBusca.getMovimentosValidos().get(movValido));
 				if(!pos.isVisitada()) {
 					pos.setPosicaoAnterior(posicaoEmBusca);
 					pos.setMovimentoAnterior(movValido);
@@ -76,17 +77,17 @@ public class Algoritimo4 {
 		
 	}
 	
-	static void gerarProximasPosicoes(Posicao posicao) {
+	static void gerarProximasPosicoes(PosicaoGrafo posicao) {
 		
 		if(posicao.isVisitada()) return;
 		
 		for(int origem = 0; origem < 3; origem++) 
 			for(int destino = 0; destino < 3; destino++) {
-				if(Movimento.isValid(posicao, origem, destino)) {
+				if(Util.isValid(posicao, origem, destino)) {
 					
 					
 					Movimento mov = new Movimento(posicao, origem, destino);
-					Posicao novaPosicao = new Posicao(posicao, mov);
+					PosicaoGrafo novaPosicao = new PosicaoGrafo(posicao, mov);
 					posicao.getMovimentosValidos().put(mov, novaPosicao.getNotacao());
 					
 					if(!grafo.containsKey(novaPosicao.getNotacao())) {

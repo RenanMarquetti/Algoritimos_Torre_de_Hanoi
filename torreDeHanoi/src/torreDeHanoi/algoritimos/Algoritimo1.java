@@ -1,9 +1,9 @@
-package torreDeHanoi;
+package torreDeHanoi.algoritimos;
 
 import java.util.Date;
 
+import torreDeHanoi.model.Movimento;
 import torreDeHanoi.util.LogMovimentos;
-import torreDeHanoi.util.Movimento;
 
 public class Algoritimo1 {
 	

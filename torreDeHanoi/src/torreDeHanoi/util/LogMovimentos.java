@@ -1,5 +1,7 @@
 package torreDeHanoi.util;
 
+import torreDeHanoi.model.Movimento;
+
 public class LogMovimentos {
 	
 	private long qtdMovimentosImprecos = 0;
