@@ -3,6 +3,7 @@ package torreDeHanoi.algoritimos;
 import torreDeHanoi.model.Movimento;
 import torreDeHanoi.model.PosicaoCalc;
 import torreDeHanoi.util.LogMovimentos;
+import torreDeHanoi.util.TipoCalculo;
 import torreDeHanoi.util.Util;
 
 public class Algoritimo5 {
@@ -30,28 +31,24 @@ public class Algoritimo5 {
 		PosicaoCalc posiFinal = new PosicaoCalc(notacaoFinal);
 		
 		Long inicio = System.currentTimeMillis();
-		Boolean[][] analiseInicio = posiInicial.calcValuePosicaoInicioByPosicaoFinal(posiFinal);
+		
+		Boolean[][] analiseInicio = posiInicial.calcValuePosicao(posiFinal, TipoCalculo.INICIAL);
 		orintacaoInicio = analiseInicio[0];
 		valueInicio = analiseInicio[1];
+		
 		int init = 0;
-		for (int i = 0; i < valueInicio.length; ++i) {
-			init = (init << 1) + (valueInicio[i] ? 1 : 0);
-		}
+		for (int i = 0; i < valueInicio.length; ++i) init = (init << 1) + (valueInicio[i] ? 1 : 0);
 		init++;
 
-		qtdDisco = posiInicial.getQtdDiscos();
-		inverterDirecao = qtdDisco % 2 == 0;
+		qtdDisco = posiInicial.qtdDiscos;
+		testador = posiInicial.testador;
 		
-		if(inverterDirecao) testador = 1;
-		
-		Boolean[][] analiseFim = posiFinal.calcValuePosicaoFinalByPosicaoInicial(posiInicial);
+		Boolean[][] analiseFim = posiFinal.calcValuePosicao(posiInicial, TipoCalculo.FINAL);
 		orintacaoFim = analiseFim[0];
 		valueFim = analiseFim[1];
 		
 		int fim = 0;
-		for (int i = 0; i < valueFim.length; ++i) {
-			fim = (fim << 1) + (valueFim[i] ? 1 : 0);
-		}
+		for (int i = 0; i < valueFim.length; ++i) fim = (fim << 1) + (valueFim[i] ? 1 : 0);
 
 		proximaInvercao = proximaInvercao << qtdDisco-1;
 		while((long) init > proximaInvercao) proximaInvercao += proximaInvercao/2;
@@ -68,7 +65,7 @@ public class Algoritimo5 {
 
 		int disco = Util.calcDisco(m);
 		
-		boolean direcao = disco % 2 == testador;
+		boolean direcao = disco % 2 != testador;
 		int indexOrientacao = qtdDisco - disco;
 		
 		if(orintacaoInicio[indexOrientacao] != null && orintacaoInicio[indexOrientacao]) {
