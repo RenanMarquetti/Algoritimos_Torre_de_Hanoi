@@ -2,8 +2,7 @@ package torreDeHanoi.abstrato;
 
 public abstract class AlgoritimoDinamico {
 	
-	public String notacaoPosicaoInicial;
-	public String notacaoPosicaoFinal;
+	public String notacaoPosicaoInicial, notacaoPosicaoFinal;
 	
 	public AlgoritimoDinamico(String notacaoPosicaoInicial, String notacaoPosicaoFinal) {
 		this.notacaoPosicaoInicial = notacaoPosicaoInicial;

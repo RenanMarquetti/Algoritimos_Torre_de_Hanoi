@@ -48,7 +48,6 @@ public class AlgoritimoByGrafo extends AlgoritimoDinamico {
 			for(int destino = 0; destino < 3; destino++) {
 				if(Util.isValid(posicao, origem, destino)) {
 					
-					
 					Movimento mov = new Movimento(posicao, origem, destino);
 					PosicaoGrafo novaPosicao = new PosicaoGrafo(posicao, mov);
 					posicao.getMovimentosValidos().put(mov, novaPosicao.getNotacao());
