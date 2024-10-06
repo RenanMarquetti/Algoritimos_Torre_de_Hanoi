@@ -1,7 +1,5 @@
 package torreDeHanoi.model;
 
-import java.util.Stack;
-
 import torreDeHanoi.util.TipoCalculo;
 import torreDeHanoi.util.Util;
 
@@ -31,30 +29,43 @@ public class PosicaoCalc extends Posicao {
 		int[] discoAnteriorFinal = null;
 		int[] discoAtualInicial = null;
 		int[] discoAtualFinal = null;
+		boolean isDefinirBase = true;
 		
+		int hasteOrigemAnterior = 0;
+		boolean manter = false;
 		for(int discoAnalisado = qtdDiscos; discoAnalisado > 0; discoAnalisado--) {
 			
 			if(TipoCalculo.INICIAL == tipo) {
 				
-				int numTorre = 0;
-				for (Stack<Integer> s : stacks) if(s.contains(discoAnalisado)) break; else numTorre++;
-				
+				discoAtualInicial = getPosicaoDisco(discoAnalisado);
 				discoAtualFinal = posicao.getPosicaoDisco(discoAnalisado);
-				pilhaFinal = discoAnalisado == qtdDiscos ? discoAtualFinal[0] : !values[1][discoAnalisado] ? 3-pilhaInicial-pilhaFinal : pilhaFinal;
-				pilhaInicial = numTorre;
+				
+				pilhaFinal = isDefinirBase ? discoAtualFinal[0] : values[1][discoAnalisado] ? pilhaFinal : 3-pilhaInicial-pilhaFinal;
+				pilhaInicial = discoAtualInicial[0];
 				values[1][discoAnalisado-1] = pilhaInicial == pilhaFinal;
+				
+				if(isDefinirBase) isDefinirBase = values[1][discoAnalisado-1] && discoAtualInicial[0] == discoAtualFinal[0] && discoAtualInicial[1] == discoAtualFinal[1];
 
 			} else {
 				
 				discoAtualInicial = posicao.getPosicaoDisco(discoAnalisado);
 				discoAtualFinal = getPosicaoDisco(discoAnalisado);
 				
-				if(discoAnalisado == qtdDiscos || pilhaInicial == pilhaFinal) {
+				if(isDefinirBase) {
 					values[1][discoAnalisado-1] = true;
 					pilhaInicial = discoAtualInicial[0];
 					pilhaFinal = discoAtualFinal[0];
-				} else values[1][discoAnalisado-1] = discoAtualFinal[0] != 3-pilhaInicial-pilhaFinal;
-				
+					isDefinirBase = pilhaInicial == pilhaFinal;
+				} else {
+					int colunaIntermediaria = 3-pilhaInicial-pilhaFinal;
+					values[1][discoAnalisado-1] = discoAtualFinal[0] != colunaIntermediaria;
+					if(values[1][discoAnalisado-1]) {
+						pilhaInicial = 3-pilhaInicial-pilhaFinal;
+						pilhaFinal = discoAtualFinal[0];
+					}
+
+				}
+
 			}
 			
 			posicaoAposMovimentoNatural = (pilhaInicial + (discoAnalisado % 2 == testador ? 2 : 1)) % 3;
@@ -62,13 +73,34 @@ public class PosicaoCalc extends Posicao {
 			if(TipoCalculo.INICIAL == tipo) {
 				values[0][discoAnalisado-1] = pilhaInicial != pilhaFinal && posicaoAposMovimentoNatural != pilhaFinal;
 			} else {
-				values[0][discoAnalisado-1] = !values[1][discoAnalisado-1] || (discoAnteriorFinal != null && discoAnteriorFinal[0] == discoAtualFinal[0] && discoAnteriorFinal[1] + 1 == discoAtualFinal[1]) ? values[0][discoAnalisado] : discoAtualInicial[0] != discoAtualFinal[0] && posicaoAposMovimentoNatural != discoAtualFinal[0];
+//				values[0][discoAnalisado-1] = discoAnteriorFinal != null && discoAnteriorFinal[0] == discoAtualFinal[0] && discoAnteriorFinal[1] + 1 == discoAtualFinal[1] ? values[0][discoAnalisado] : discoAtualInicial[0] != discoAtualFinal[0] && posicaoAposMovimentoNatural != discoAtualFinal[0];
+				int hasteOrigem;
+				int hasteAposMovimento;
+				int hasteFinal;
+				
+				if(discoAnteriorFinal == null) {
+					
+					hasteOrigem = discoAtualInicial[0];
+					hasteAposMovimento = (hasteOrigem + (discoAnalisado % 2 == testador ? 2 : 1)) % 3;
+					hasteFinal = discoAtualFinal[0];
+				} else {
+					hasteOrigem = manter ? hasteOrigemAnterior : 3 - discoAnteriorFinal[0] - hasteOrigemAnterior;
+					hasteAposMovimento = (hasteOrigem + (discoAnalisado % 2 == testador ? 2 : 1)) % 3;
+					hasteFinal = discoAtualFinal[0];
+					
+				}
+				
+//				System.out.println("discoAnalisado: "+discoAnalisado+" hasteOrigem "+hasteOrigem+" hasteAposMovimento: "+hasteAposMovimento+" hasteFinal: "+hasteFinal+"\n"); 
+				manter = hasteFinal == hasteOrigem;
+				values[0][discoAnalisado-1] = manter ? null : hasteAposMovimento != hasteFinal;
 				discoAnteriorFinal = discoAtualFinal;
+				hasteOrigemAnterior = hasteOrigem;
 			}
 			
 		}
 		
 		values = Util.inverterArray(values);
+		
 		orientacao = values[0];
 		base = values[1];
 		

@@ -1,5 +1,7 @@
 package torreDeHanoi.algoritimos;
 
+import java.util.Arrays;
+
 import torreDeHanoi.abstrato.AlgoritimoDinamico;
 import torreDeHanoi.abstrato.LogSaida;
 import torreDeHanoi.model.Movimento;
@@ -41,7 +43,9 @@ public class AlgoritimoByCalculoBinario extends AlgoritimoDinamico {
 	
 	@Override
 	public void imprimir(LogSaida log) {
-		System.out.println("Operação: "+posicaoInicial.getNotacao()+" -> "+posicaoFinal.getNotacao());
+		System.out.println("Operação: "+posicaoInicial.getNotacao()+" -> "+posicaoFinal.getNotacao()+"\n");
+		System.out.println("posicaoInicial: "+Arrays.toString(posicaoInicial.orientacao));
+		System.out.println("posicaoFinal: "+Arrays.toString(posicaoFinal.orientacao)+"\n");
 		for(long m = posicaoInicial.referencia; m <= posicaoFinal.referencia; m++) log.imprimirMovimento(buildMovimento(m));
 		System.out.println();
 	}
@@ -59,8 +63,20 @@ public class AlgoritimoByCalculoBinario extends AlgoritimoDinamico {
 		}
 		
 		if(m == proximaInvercao && indexOrientacao+1 < posicaoFinal.orientacao.length) {
-			for(int c = indexOrientacao; c < qtdDisco; c++) posicaoInicial.orientacao[c] = posicaoFinal.orientacao[indexOrientacao+1];
-			proximaInvercao += (long) (Math.pow(2.0, indexOrientacao+1));
+			int i = indexOrientacao;
+			Boolean b = null;
+			int d = disco + 1;
+			
+			do {
+				i++;
+				d--;
+				b = posicaoFinal.orientacao[i];
+			} while(b == null && i+1 < posicaoFinal.orientacao.length);
+			
+			if(b != null) {
+				for(int c = indexOrientacao; c < qtdDisco; c++) posicaoInicial.orientacao[c] = posicaoFinal.orientacao[i];
+				proximaInvercao += (long) (Math.pow(2.0, d-2));
+			}
 		}
 		
 		return new Movimento(disco, direcao);

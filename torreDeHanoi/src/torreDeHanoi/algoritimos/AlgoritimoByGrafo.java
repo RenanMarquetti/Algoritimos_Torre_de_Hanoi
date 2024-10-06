@@ -11,7 +11,6 @@ import torreDeHanoi.abstrato.AlgoritimoDinamico;
 import torreDeHanoi.abstrato.LogSaida;
 import torreDeHanoi.model.Movimento;
 import torreDeHanoi.model.PosicaoGrafo;
-import torreDeHanoi.util.LogMovimentos;
 import torreDeHanoi.util.Util;
 
 public class AlgoritimoByGrafo extends AlgoritimoDinamico {
@@ -109,8 +108,7 @@ public class AlgoritimoByGrafo extends AlgoritimoDinamico {
 	@Override
 	public void imprimir(LogSaida log) {
 		System.out.println("Operação: "+posicaoInicial.getNotacao()+" -> "+posicaoFinal.getNotacao());
-		LogMovimentos logSaida = new LogMovimentos();
-		for(int c = resultado.size()-1; c>=0; c--) logSaida.imprimirMovimento(resultado.get(c));
+		for(int c = resultado.size()-1; c>=0; c--) log.imprimirMovimento(resultado.get(c));
 		System.out.println();
 	}
 	
