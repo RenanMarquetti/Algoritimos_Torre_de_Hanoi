@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Torre de Hanoi</title>
+    </head>
+    <body>
+        <div id="cabecalho">
+            <select id="inicio" onchange="montarTorre()">
+			  <option selected="selected">1:2:3:4|0|0|</option>
+			  <option >0|1:2:3:4|0|</option>
+			  <option >1|2:4|3|</option>
+			  <option >2:3:4|0|1|</option>
+			</select>
+            <br>
+            <select id="fim" onchange="montarTorre()">
+			  <option selected="selected">0|0|1:2:3:4|</option>
+			  <option >0|1:2:3:4|0|</option>
+			  <option >1|2:4|3|</option>
+			  <option >2:3:4|0|1|</option>
+			</select>
+            <br>
+            <h4 id="sequencia">1E  2D  1E  3E  1E  2D  1E  4D  1E  2D  1E  3E</h4>
+            <br>
+            <button type="button" onclick="montarTorre()">Montar Torre</button>
+            <button type="button" onclick="iniciar()">Iniciar</button>
+        </div>
+        <canvas id="areaDesenho" width="960" height="540" style="border: 3px solid black">
+
+        </canvas>
+    </body>
+    <script src="base.js"></script>
+    <script src="haste.js"></script>
+    <script src="disco.js"></script>
+    <script src="torre.js"></script>
+    <script src="controller.js" onload="montarTorre()"></script>
+</html>
