@@ -7,8 +7,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import torredehanoi.algoritimos.AlgoritimoByGrafo;
+import torredehanoi.abstrato.AlgoritimoDinamico;
+import torredehanoi.algoritimos.AlgoritimoByCalculoBinario;
 
 @WebServlet(urlPatterns = { "/grafo" })
 public class Servelet extends HttpServlet {
@@ -23,8 +23,7 @@ public class Servelet extends HttpServlet {
 		resp.setContentType("text/html");
 		
 		if(init != null && fim != null) {
-			AlgoritimoByGrafo alg = new AlgoritimoByGrafo(init, fim).calcular();
-//			alg.imprimir(new LogMovimentosDireto());
+			AlgoritimoDinamico alg = new AlgoritimoByCalculoBinario(init, fim).calcular();
 			resp.getWriter().write(alg.getResult());
 		} else {
 			resp.getWriter().write("Vazio");
