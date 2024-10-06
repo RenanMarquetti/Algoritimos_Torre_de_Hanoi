@@ -1,14 +1,14 @@
-package torreDeHanoi;
+package torredehanoi;
 
-import torreDeHanoi.abstrato.AlgoritimoDinamico;
-import torreDeHanoi.abstrato.AlgoritimoStatico;
-import torreDeHanoi.algoritimos.AlgoritimoByArray;
-import torreDeHanoi.algoritimos.AlgoritimoByCalculoBinario;
-import torreDeHanoi.algoritimos.AlgoritimoByGrafo;
-import torreDeHanoi.algoritimos.AlgoritimoByLong;
-import torreDeHanoi.algoritimos.AlgoritimoByStack;
-import torreDeHanoi.util.LogMovimentos;
-import torreDeHanoi.util.LogMovimentosDireto;
+import torredehanoi.abstrato.AlgoritimoDinamico;
+import torredehanoi.abstrato.AlgoritimoStatico;
+import torredehanoi.algoritimos.AlgoritimoByArray;
+import torredehanoi.algoritimos.AlgoritimoByCalculoBinario;
+import torredehanoi.algoritimos.AlgoritimoByGrafo;
+import torredehanoi.algoritimos.AlgoritimoByLong;
+import torredehanoi.algoritimos.AlgoritimoByStack;
+import torredehanoi.util.LogMovimentos;
+import torredehanoi.util.LogMovimentosDireto;
 
 public class Main {
 	public static void main(String[] args) {

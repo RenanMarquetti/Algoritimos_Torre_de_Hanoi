@@ -1,13 +1,14 @@
-package torreDeHanoi.algoritimos;
+package torredehanoi.algoritimos;
 
 import java.util.Arrays;
 
-import torreDeHanoi.abstrato.AlgoritimoDinamico;
-import torreDeHanoi.abstrato.LogSaida;
-import torreDeHanoi.model.Movimento;
-import torreDeHanoi.model.PosicaoCalc;
-import torreDeHanoi.util.TipoCalculo;
-import torreDeHanoi.util.Util;
+import torredehanoi.abstrato.AlgoritimoDinamico;
+import torredehanoi.abstrato.LogSaida;
+import torredehanoi.model.Movimento;
+import torredehanoi.model.PosicaoCalc;
+import torredehanoi.util.TipoCalculo;
+import torredehanoi.util.Util;
+
 
 public class AlgoritimoByCalculoBinario extends AlgoritimoDinamico {
 	
@@ -48,6 +49,13 @@ public class AlgoritimoByCalculoBinario extends AlgoritimoDinamico {
 		System.out.println("posicaoFinal: "+Arrays.toString(posicaoFinal.orientacao)+"\n");
 		for(long m = posicaoInicial.referencia; m <= posicaoFinal.referencia; m++) log.imprimirMovimento(buildMovimento(m));
 		System.out.println();
+	}
+
+	@Override
+	public String getResult() {
+		StringBuffer stringBuffer = new StringBuffer();
+		for(long m = posicaoInicial.referencia; m <= posicaoFinal.referencia; m++) stringBuffer.append(" "+buildMovimento(m).getNotacao());
+		return stringBuffer.toString();
 	}
 	
 	private Movimento buildMovimento(long m) {

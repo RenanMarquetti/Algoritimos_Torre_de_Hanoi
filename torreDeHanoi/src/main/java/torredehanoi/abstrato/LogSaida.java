@@ -1,6 +1,6 @@
-package torreDeHanoi.abstrato;
+package torredehanoi.abstrato;
 
-import torreDeHanoi.model.Movimento;
+import torredehanoi.model.Movimento;
 
 public interface LogSaida {
 	public void imprimirMovimento(Movimento m);

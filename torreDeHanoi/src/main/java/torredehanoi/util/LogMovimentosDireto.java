@@ -1,7 +1,7 @@
-package torreDeHanoi.util;
+package torredehanoi.util;
 
-import torreDeHanoi.abstrato.LogSaida;
-import torreDeHanoi.model.Movimento;
+import torredehanoi.abstrato.LogSaida;
+import torredehanoi.model.Movimento;
 
 public class LogMovimentosDireto implements LogSaida {
 	

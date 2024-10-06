@@ -1,9 +1,9 @@
-package torreDeHanoi.util;
+package torredehanoi.util;
 
 import java.util.List;
 import java.util.Stack;
 
-import torreDeHanoi.model.Posicao;
+import torredehanoi.model.Posicao;
 
 public class Util {
 	

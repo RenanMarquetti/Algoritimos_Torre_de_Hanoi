@@ -1,4 +1,4 @@
-package torreDeHanoi.util;
+package torredehanoi.util;
 
 public enum TipoCalculo {
 	INICIAL, FINAL

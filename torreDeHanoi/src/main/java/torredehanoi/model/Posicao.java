@@ -1,4 +1,4 @@
-package torreDeHanoi.model;
+package torredehanoi.model;
 
 import java.util.ArrayList;
 import java.util.List;

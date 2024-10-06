@@ -1,4 +1,4 @@
-package torreDeHanoi.model;
+package torredehanoi.model;
 
 public class Movimento {
 

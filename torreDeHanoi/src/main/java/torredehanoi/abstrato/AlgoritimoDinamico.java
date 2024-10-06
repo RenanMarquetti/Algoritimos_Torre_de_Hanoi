@@ -1,4 +1,4 @@
-package torreDeHanoi.abstrato;
+package torredehanoi.abstrato;
 
 public abstract class AlgoritimoDinamico {
 	
@@ -11,5 +11,7 @@ public abstract class AlgoritimoDinamico {
 
 	public abstract AlgoritimoDinamico calcular();
 	public abstract void imprimir(LogSaida log);
+	
+	public abstract String getResult();
 	
 }

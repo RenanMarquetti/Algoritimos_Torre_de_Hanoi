@@ -1,4 +1,4 @@
-package torreDeHanoi.abstrato;
+package torredehanoi.abstrato;
 
 public abstract class AlgoritimoStatico {
 	

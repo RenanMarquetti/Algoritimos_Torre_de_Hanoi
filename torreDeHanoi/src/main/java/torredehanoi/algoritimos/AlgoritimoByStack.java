@@ -1,16 +1,19 @@
-package torreDeHanoi.algoritimos;
+package torredehanoi.algoritimos;
 
 import java.util.Stack;
 
-import torreDeHanoi.abstrato.AlgoritimoStatico;
-import torreDeHanoi.abstrato.LogSaida;
-import torreDeHanoi.model.Movimento;
+import torredehanoi.abstrato.AlgoritimoStatico;
+import torredehanoi.abstrato.LogSaida;
+import torredehanoi.model.Movimento;
 
 public class AlgoritimoByStack extends AlgoritimoStatico {
 	
+	@SuppressWarnings("rawtypes")
 	private Stack[] torres = new Stack[] {new Stack<Integer>(), new Stack<Integer>(), new Stack<Integer>()};
 	int ultimoMecher, disco, qualMecher;
 	
+	
+	@SuppressWarnings("unchecked")
 	public AlgoritimoByStack(int qtdDiscos, int torreInicial, int torreFinal) {
 		super(qtdDiscos, torreInicial, torreFinal);
 		for( int c = 1; c <= qtdDiscos; torres[torreInicial].push(c++));
@@ -32,6 +35,7 @@ public class AlgoritimoByStack extends AlgoritimoStatico {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private int mecher(int torre) {
 		
 		int disco = (int) torres[torre].pop();

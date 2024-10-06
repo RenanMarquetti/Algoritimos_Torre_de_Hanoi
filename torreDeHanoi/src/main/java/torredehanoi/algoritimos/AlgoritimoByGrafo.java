@@ -1,4 +1,4 @@
-package torreDeHanoi.algoritimos;
+package torredehanoi.algoritimos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import torreDeHanoi.abstrato.AlgoritimoDinamico;
-import torreDeHanoi.abstrato.LogSaida;
-import torreDeHanoi.model.Movimento;
-import torreDeHanoi.model.PosicaoGrafo;
-import torreDeHanoi.util.Util;
+import torredehanoi.abstrato.AlgoritimoDinamico;
+import torredehanoi.abstrato.LogSaida;
+import torredehanoi.model.Movimento;
+import torredehanoi.model.PosicaoGrafo;
+import torredehanoi.util.Util;
 
 public class AlgoritimoByGrafo extends AlgoritimoDinamico {
 	
@@ -110,6 +110,13 @@ public class AlgoritimoByGrafo extends AlgoritimoDinamico {
 		System.out.println("Operação: "+posicaoInicial.getNotacao()+" -> "+posicaoFinal.getNotacao());
 		for(int c = resultado.size()-1; c>=0; c--) log.imprimirMovimento(resultado.get(c));
 		System.out.println();
+	}
+
+	@Override
+	public String getResult() {
+		StringBuffer stringBuffer = new StringBuffer();
+		for(int c = resultado.size()-1; c>=0; c--) stringBuffer.append(" "+resultado.get(c).getNotacao());
+		return stringBuffer.toString();
 	}
 	
 }

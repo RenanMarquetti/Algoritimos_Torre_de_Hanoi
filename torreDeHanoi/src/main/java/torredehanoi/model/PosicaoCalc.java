@@ -1,7 +1,7 @@
-package torreDeHanoi.model;
+package torredehanoi.model;
 
-import torreDeHanoi.util.TipoCalculo;
-import torreDeHanoi.util.Util;
+import torredehanoi.util.TipoCalculo;
+import torredehanoi.util.Util;
 
 public class PosicaoCalc extends Posicao {
 	

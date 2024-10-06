@@ -1,8 +1,8 @@
-package torreDeHanoi.algoritimos;
+package torredehanoi.algoritimos;
 
-import torreDeHanoi.abstrato.AlgoritimoStatico;
-import torreDeHanoi.abstrato.LogSaida;
-import torreDeHanoi.model.Movimento;
+import torredehanoi.abstrato.AlgoritimoStatico;
+import torredehanoi.abstrato.LogSaida;
+import torredehanoi.model.Movimento;
 
 public class AlgoritimoByArray extends AlgoritimoStatico {
 	
