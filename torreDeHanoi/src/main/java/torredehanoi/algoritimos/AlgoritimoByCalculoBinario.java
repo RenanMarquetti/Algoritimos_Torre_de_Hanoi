@@ -45,8 +45,10 @@ public class AlgoritimoByCalculoBinario extends AlgoritimoDinamico {
 	@Override
 	public void imprimir(LogSaida log) {
 		System.out.println("Operação: "+posicaoInicial.getNotacao()+" -> "+posicaoFinal.getNotacao()+"\n");
-		System.out.println("posicaoInicial: "+Arrays.toString(posicaoInicial.orientacao));
-		System.out.println("posicaoFinal: "+Arrays.toString(posicaoFinal.orientacao)+"\n");
+//		System.out.println("posicaoInicial O: "+Arrays.toString(posicaoInicial.orientacao));
+//		System.out.println("posicaoInicial A: "+Arrays.toString(posicaoInicial.base)+"\n");
+//		System.out.println("posicaoFinal O: "+Arrays.toString(posicaoFinal.orientacao));
+//		System.out.println("posicaoFinal A: "+Arrays.toString(posicaoFinal.base)+"\n");
 		for(long m = posicaoInicial.referencia; m <= posicaoFinal.referencia; m++) log.imprimirMovimento(buildMovimento(m));
 		System.out.println();
 	}
